@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "main": "index.mjs",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file=.env src/index.mjs"
+  },
+  "dependencies": {
+    "@pinecone-database/pinecone": "^2.2.0",
+    "@xenova/transformers": "^2.17.1",
+    "cli-progress": "^3.12.0",
+    "express": "^4.19.2"
+  }
+}
