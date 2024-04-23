@@ -3,11 +3,13 @@ import { pipeline } from "@xenova/transformers";
 
 const pipe = await pipeline("embeddings", "Xenova/all-MiniLM-L6-v2");
 
-const query = async (query, topK) => {
+const query = async (query: string, topK: number) => {
   try {
-    const pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
+    const pinecone = new Pinecone({
+      apiKey: process.env.PINECONE_API_KEY!,
+    });
 
-    const index = pinecone.index(process.env.PINECONE_INDEX_NAME);
+    const index = pinecone.index(process.env.PINECONE_INDEX_NAME!);
 
     const embedding = await pipe(query, {
       pooling: "mean",

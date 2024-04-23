@@ -29,7 +29,7 @@ export const getCourses = async () => {
   }
 };
 
-export const getCourse = async (subject, number) => {
+export const getCourse = async (subject: string, courseNumber: string) => {
   try {
     const response = await fetch("https://stanfurdtime.com/api/graphql", {
       method: "POST",
@@ -39,7 +39,7 @@ export const getCourse = async (subject, number) => {
       body: JSON.stringify({
         query: `
         query ExampleQuery {
-          course(subject: "${subject}", courseNumber: "${number}") {
+          course(subject: "${subject}", courseNumber: "${courseNumber}") {
             description
           }
         }
@@ -55,6 +55,6 @@ export const getCourse = async (subject, number) => {
 
     return course;
   } catch (error) {
-    console.log(`Failed to fetch course ${subject} ${number}.`);
+    console.log(`Failed to fetch course ${subject} ${courseNumber}.`);
   }
 };
