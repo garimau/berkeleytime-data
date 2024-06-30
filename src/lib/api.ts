@@ -41,6 +41,7 @@ export const getCourse = async (subject: string, courseNumber: string) => {
         query ExampleQuery {
           course(subject: "${subject}", courseNumber: "${courseNumber}") {
             description
+            prereqs
           }
         }
       `,

@@ -41,16 +41,14 @@ const getCourse = async (abbreviation, courseNumber) => {
       },
     } = await response.json();
 
-    sections.map(({ node: { locationName } }) => {
+    /*sections.map(({ node: { locationName } }) => {
       const building = locationName.split(" ").slice(0, -1).join(" ");
       buildings.add(building);
 
       locations.add(locationName);
+    });*/
 
-      prerequisites.add(prereqs);
-    });
-
-    console.log(abbreviation, courseNumber);
+    prerequisites.add(prereqs);
 
     successful++;
   } catch (error) {
@@ -89,7 +87,7 @@ const getCourses = async () => {
     courses.add(`${abbreviation} ${courseNumber}`);
     abbreviations.add(abbreviation);
 
-    // await getCourse(abbreviation, courseNumber);
+    await getCourse(abbreviation, courseNumber);
 
     // await new Promise((resolve) => setTimeout(resolve, 10));
   }
@@ -105,11 +103,6 @@ const getCourses = async () => {
   );
 
   await writeFile(
-    join("..", "out", "prerequisites.txt"),
-    Array.from(prerequisites).join("\n")
-  );*/
-
-  await writeFile(
     join("..", "out", "courses.txt"),
     Array.from(courses).join("\n")
   );
@@ -117,6 +110,11 @@ const getCourses = async () => {
   await writeFile(
     join("..", "out", "abbreviations.txt"),
     Array.from(abbreviations).join("\n")
+  );*/
+
+  await writeFile(
+    join("..", "out", "prerequisites.txt"),
+    Array.from(prerequisites).join("\n")
   );
 
   console.log(successful, edges.length, successful / edges.length);
