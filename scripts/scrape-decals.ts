@@ -231,6 +231,7 @@ const initialize = async () => {
 
   const decals: Decal[] = [];
 
+  // Reduce load on server by fetching sequentially
   for (const semester of semesters) {
     const start = performance.now();
 
