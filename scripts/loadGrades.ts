@@ -5,6 +5,7 @@ import {
   StartQueryExecutionCommand,
 } from "@aws-sdk/client-athena";
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { join } from "path";
 
 class StudentEnrollment {
   private database = process.env.AWS_DATABASE;
@@ -77,7 +78,7 @@ class StudentEnrollment {
 
           if (queryStatus === "FAILED" || queryStatus === "CANCELLED") {
             throw new Error(
-              `Athena query "${this.query}" failed or was cancelled`
+              `Athena query "${this.query}" failed or was cancelled: ${execution.QueryExecution?.Status?.StateChangeReason}`
             );
           }
 
@@ -117,7 +118,7 @@ class StudentEnrollment {
 
       const body = await response.Body?.transformToString();
 
-      const file = fs.createWriteStream(this.filename as string);
+      const file = fs.createWriteStream(join("out", this.filename as string));
 
       file.on("finish", () => {
         console.log(`Downloaded file to ${this.filename}`);
@@ -133,7 +134,7 @@ class StudentEnrollment {
 
 const main = async () => {
   const enrollment = new StudentEnrollment(
-    `SELECT * FROM "lf_cs_curated"."student_grade_distribution_data" limit 10`
+    `SELECT * FROM "lf_cs_curated"."student_grade_distribution_data" WHERE semester_year_term_cd = '2248' limit 250`
   );
 
   await enrollment.runQuery();
