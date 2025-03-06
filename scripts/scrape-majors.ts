@@ -57,7 +57,7 @@ const parseTable = (table: HTMLTableElement) => {
 
   for (const row of rows) {
     // A new group started
-    const [title] = row.querySelectorAll<HTMLSpanElement>(
+    const title = row.querySelector<HTMLSpanElement>(
       "span.courselistcomment"
     );
 
@@ -83,7 +83,7 @@ const parseTable = (table: HTMLTableElement) => {
     if (!links.length) continue;
 
     const courses = Array.from(links).map((link) =>
-      link.text.replaceAll(/\u00a0/g, " ")
+      link.text.replace(/\u00a0/g, " ")
     );
 
     const initialSubject = courses[0].split(" ").slice(0, -1).join(" ");
